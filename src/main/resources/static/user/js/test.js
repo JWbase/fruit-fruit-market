@@ -15,7 +15,6 @@ $(document).on('click', '#buttonTest', () => {
         $('body').append(res.data);
     });
 
-
     $(document).on('click', '#confirmBtn', () => {
         $('.txt04').remove();
     });

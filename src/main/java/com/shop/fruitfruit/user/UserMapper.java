@@ -1,11 +1,10 @@
 package com.shop.fruitfruit.user;
 
+import com.shop.fruitfruit.domain.User;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.HashMap;
 
 @Mapper
 public interface UserMapper {
 
-    HashMap<String, Object> testSelect();
+    User login(UserLoginForm form);
 }

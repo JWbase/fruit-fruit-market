@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.fruitfruit.user.UserMapper">
+
+    <!-- user 테이블 전체 컬럼 -->
+    <sql id="userColumns">
+        id,
+        email,
+        nickname,
+        password,
+        status,
+        created_at,
+        updated_at
+    </sql>
+
+    <!-- term 테이블 전체 컬럼 -->
+    <sql id="termColumns">
+        id,
+        title,
+        content,
+        required,
+        created_at,
+        updated_at
+    </sql>
+
+    <!-- user_term 테이블 전체 컬럼 -->
+    <sql id="userTermColumns">
+        id,
+        user_id,
+        term_id,
+        accepted_at
+    </sql>
+
+    <!-- 회원 로그인 Sql -->
+    <select id="login" parameterType="com.shop.fruitfruit.user.UserLoginForm" resultType="com.shop.fruitfruit.domain.User">
+        SELECT
+            email,
+            password
+        FROM
+            user
+        WHERE
+            email = #{loginId} AND password = #{password}
+    </select>
+</mapper>
