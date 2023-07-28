@@ -6,10 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,11 +26,35 @@ public class UserController {
     void noFavicon() {
     }
 
+    @GetMapping("/join")
+    public String joinForm(@ModelAttribute User user) {
+        return "user/join";
+    }
+
+    //회원가입
+    @PostMapping("/join")
+    public String join(@Valid @ModelAttribute User user, @RequestParam List<String> termStatus, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "user/join";
+        }
+        String joinEmail = userService.join(user, termStatus);
+        redirectAttributes.addFlashAttribute("email", joinEmail);
+
+        return "redirect:/user/joinConfirm";
+    }
+
+    //회원가입 성공 페이지
+    @GetMapping("/joinConfirm")
+    public String joinConfirm() {
+        return "user/joinConfirm";
+    }
+
     @GetMapping("/login")
     public String loginForm(@ModelAttribute UserLoginForm form) {
         return "user/login";
     }
 
+    //로그인
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute UserLoginForm form,
                         BindingResult bindingResult,

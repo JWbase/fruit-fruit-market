@@ -1,9 +1,11 @@
 package com.shop.fruitfruit.domain;
 
+import lombok.Data;
+
+@Data
 public class UserTerm {
 
     private Long id;
-    private Long memberId;
+    private Long userId;
     private Long termId;
-    private Boolean acceptedAt;
 }

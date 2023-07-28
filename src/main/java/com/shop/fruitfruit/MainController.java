@@ -12,17 +12,9 @@ import java.util.HashMap;
 @Controller
 public class MainController {
 
-    @GetMapping("")
+    @GetMapping("/")
     public String index() {
         return "index";
     }
-
-//    @PostMapping("/alert")
-//    public String alertModal(@RequestBody HashMap<String, Object> param, Model model) {
-//        model.addAttribute("title", param.get("title"));
-//        model.addAttribute("msg", param.get("msg"));
-//
-//        return "modal/alert";
-//    }
 
 }

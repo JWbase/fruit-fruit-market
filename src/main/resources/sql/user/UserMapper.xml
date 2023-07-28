@@ -4,7 +4,6 @@
 
     <!-- user 테이블 전체 컬럼 -->
     <sql id="userColumns">
-        id,
         email,
         nickname,
         password,
@@ -15,7 +14,6 @@
 
     <!-- term 테이블 전체 컬럼 -->
     <sql id="termColumns">
-        id,
         title,
         content,
         required,
@@ -25,11 +23,33 @@
 
     <!-- user_term 테이블 전체 컬럼 -->
     <sql id="userTermColumns">
-        id,
         user_id,
-        term_id,
-        accepted_at
+        term_id
     </sql>
+
+    <!-- user -->
+    <insert id="joinUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user
+            (<include refid="userColumns"/>)
+        VALUES (
+            #{email},
+            #{nickname},
+            #{password},
+            1,
+            NOW(),
+            NOW()
+        )
+    </insert>
+
+    <!-- 회원-약관 맵핑 -->
+    <insert id="joinUserTerm">
+        INSERT INTO user_term
+            (<include refid="userTermColumns"/>)
+        VALUES (
+            #{userId},
+            (SELECT id FROM term WHERE title = #{termStatus})
+        )
+    </insert>
 
     <!-- 회원 로그인 Sql -->
     <select id="login" parameterType="com.shop.fruitfruit.user.UserLoginForm" resultType="com.shop.fruitfruit.domain.User">
