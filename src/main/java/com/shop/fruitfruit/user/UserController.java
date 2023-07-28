@@ -3,8 +3,11 @@ package com.shop.fruitfruit.user;
 import com.shop.fruitfruit.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -27,25 +30,35 @@ public class UserController {
     }
 
     @GetMapping("/join")
-    public String joinForm(@ModelAttribute User user) {
+    public String joinForm(@ModelAttribute("user") User user) {
         return "user/join";
     }
 
     //회원가입
     @PostMapping("/join")
-    public String join(@Valid @ModelAttribute User user, @RequestParam List<String> termStatus, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String join(@Validated @ModelAttribute("user") User user,
+                        BindingResult bindingResult,
+                        @RequestParam(required = false) List<String> termStatus,
+                        RedirectAttributes redirectAttributes,
+                        BCryptPasswordEncoder bCryptPasswordEncoder) {
+
         if (bindingResult.hasErrors()) {
             return "user/join";
         }
-        String joinEmail = userService.join(user, termStatus);
-        redirectAttributes.addFlashAttribute("email", joinEmail);
 
-        return "redirect:/user/joinConfirm";
+        //비밀번호 암호화
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
+        String joinEmail = userService.join(user, termStatus);
+        redirectAttributes.addAttribute("email", joinEmail);
+
+        return "redirect:/user/joinConfirm?email={email}";
     }
 
     //회원가입 성공 페이지
     @GetMapping("/joinConfirm")
-    public String joinConfirm() {
+    public String joinConfirm(@RequestParam String email, Model model) {
+        model.addAttribute("email", email);
         return "user/joinConfirm";
     }
 
@@ -56,7 +69,7 @@ public class UserController {
 
     //로그인
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute UserLoginForm form,
+    public String login(@Validated @ModelAttribute UserLoginForm form,
                         BindingResult bindingResult,
                         HttpServletRequest request) {
 

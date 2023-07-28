@@ -21,13 +21,12 @@ public class UserService implements UserMapper {
 
     @Transactional
     public String join(User user, List<String> termStatus) {
-        //유저
+        //유저 조인
         userMapper.joinUser(user);
-        //약관
+
+        //선택 약관 추가
         if (termStatus != null) {
-            for (String status : termStatus) {
-                userMapper.joinUserTerm(user.getId(), status);
-            }
+            termStatus.forEach(term -> userMapper.joinUserTerm(user.getId(), term));
         }
 
         return user.getEmail();
