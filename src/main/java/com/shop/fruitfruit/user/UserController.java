@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -38,7 +37,7 @@ public class UserController {
     @PostMapping("/join")
     public String join(@Validated @ModelAttribute("user") User user,
                         BindingResult bindingResult,
-                        @RequestParam(required = false) List<String> termStatus,
+                        @RequestParam("termTitle") List<String> termTitle,
                         RedirectAttributes redirectAttributes,
                         BCryptPasswordEncoder bCryptPasswordEncoder) {
 
@@ -49,7 +48,7 @@ public class UserController {
         //비밀번호 암호화
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
-        String joinEmail = userService.join(user, termStatus);
+        String joinEmail = userService.join(user, termTitle);
         redirectAttributes.addAttribute("email", joinEmail);
 
         return "redirect:/user/joinConfirm?email={email}";

@@ -20,13 +20,13 @@ public class UserService implements UserMapper {
     }
 
     @Transactional
-    public String join(User user, List<String> termStatus) {
+    public String join(User user, List<String> termTitle) {
         //유저 조인
         userMapper.joinUser(user);
 
         //선택 약관 추가
-        if (termStatus != null) {
-            termStatus.forEach(term -> userMapper.joinUserTerm(user.getId(), term));
+        if (termTitle != null) {
+            termTitle.forEach(title -> userMapper.joinUserTerm(user.getId(), title));
         }
 
         return user.getEmail();
@@ -37,6 +37,6 @@ public class UserService implements UserMapper {
     }
 
     @Override
-    public void joinUserTerm(Long userId, String termStatus) {
+    public void joinUserTerm(Long userId, String termTitle) {
     }
 }

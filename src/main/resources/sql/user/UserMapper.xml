@@ -47,7 +47,7 @@
             (<include refid="userTermColumns"/>)
         VALUES (
             #{userId},
-            (SELECT id FROM term WHERE title = #{termStatus})
+            (SELECT id FROM term WHERE title = #{termTitle})
         )
     </insert>
 

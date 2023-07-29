@@ -2,6 +2,8 @@ package com.shop.fruitfruit.user;
 
 import com.shop.fruitfruit.domain.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -12,5 +14,5 @@ public interface UserMapper {
 
     void joinUser(User user);
 
-    void joinUserTerm(Long userId, String termStatus);
+    void joinUserTerm(@Param("userId") Long userId, @Param("termTitle") String termTitle);
 }
