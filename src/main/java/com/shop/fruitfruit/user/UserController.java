@@ -13,7 +13,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -105,6 +107,29 @@ public class UserController {
         return "redirect:/";
     }
 
+    //패스워드 찾기 화면
+    @GetMapping("/findPassword")
+    public String findPassword() {
+        return "user/findPw";
+    }
+
+    //패스워드 찾기
+    @PostMapping("/findPassword")
+    @ResponseBody
+    public Map<String, Object> findPassword(@RequestBody Map<String, String> email) {
+        boolean emailExists = userService.existsByEmail(email.get("email"));
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("exists", emailExists);
+
+        return response;
+    }
+
+    @GetMapping("/changePassword")
+    public String changePassword() {
+        return "user/changePw";
+    }
+
     //로그아웃
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
@@ -116,7 +141,7 @@ public class UserController {
     }
 
 
-    @GetMapping("{pageName}")
+    @GetMapping("/{pageName}")
     public String pageName(@PathVariable String pageName) {
         return pageName;
     }
