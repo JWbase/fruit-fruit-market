@@ -46,16 +46,11 @@ public class UserController {
         //비밀번호 암호화
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
-        boolean emailExists = userService.existsByEmail(user.getEmail());
-        boolean nicknameExists = userService.existsByNickname(user.getNickname());
+        if (userService.existsByEmail(user.getEmail()))
+            bindingResult.rejectValue("email", "duplicate.email", "이미 가입된 계정 입니다.");
 
-        if(emailExists) {
-            bindingResult.rejectValue("email", "duplicate.email", "이미 존재하는 이메일 입니다.");
-        }
-
-        if (nicknameExists) {
-            bindingResult.rejectValue("nickname", "duplicate.nickname", "이미 존재하는 닉네임 입니다.");
-        }
+        if (userService.existsByNickname(user.getNickname()))
+            bindingResult.rejectValue("nickname", "duplicate.nickname", "해당 닉네임은 이미 사용중입니다.");
 
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
@@ -89,6 +84,7 @@ public class UserController {
                         HttpServletRequest request) {
 
         if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
             return "user/login";
         }
 
@@ -124,4 +120,5 @@ public class UserController {
     public String pageName(@PathVariable String pageName) {
         return pageName;
     }
+
 }
