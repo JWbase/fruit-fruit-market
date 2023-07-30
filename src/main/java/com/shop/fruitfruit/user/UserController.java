@@ -28,6 +28,7 @@ public class UserController {
     void noFavicon() {
     }
 
+    //회원가입 페이지
     @GetMapping("/join")
     public String joinForm(@ModelAttribute("user") User user) {
         return "user/join";
@@ -36,17 +37,31 @@ public class UserController {
     //회원가입
     @PostMapping("/join")
     public String join(@Validated @ModelAttribute("user") User user,
-                        BindingResult bindingResult,
-                        @RequestParam("termTitle") List<String> termTitle,
-                        RedirectAttributes redirectAttributes,
-                        BCryptPasswordEncoder bCryptPasswordEncoder) {
-
-        if (bindingResult.hasErrors()) {
-            return "user/join";
-        }
+                       BindingResult bindingResult,
+                       @RequestParam("termTitle") List<String> termTitle,
+                       RedirectAttributes redirectAttributes,
+                       Model model,
+                       BCryptPasswordEncoder bCryptPasswordEncoder) {
 
         //비밀번호 암호화
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
+        boolean emailExists = userService.existsByEmail(user.getEmail());
+        boolean nicknameExists = userService.existsByNickname(user.getNickname());
+
+        if(emailExists) {
+            bindingResult.rejectValue("email", "duplicate.email", "이미 존재하는 이메일 입니다.");
+        }
+
+        if (nicknameExists) {
+            bindingResult.rejectValue("nickname", "duplicate.nickname", "이미 존재하는 닉네임 입니다.");
+        }
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            model.addAttribute("user", user);
+            return "user/join";
+        }
 
         String joinEmail = userService.join(user, termTitle);
         redirectAttributes.addAttribute("email", joinEmail);
@@ -61,6 +76,7 @@ public class UserController {
         return "user/joinConfirm";
     }
 
+    //로그인 페이지
     @GetMapping("/login")
     public String loginForm(@ModelAttribute UserLoginForm form) {
         return "user/login";
@@ -92,6 +108,17 @@ public class UserController {
 
         return "redirect:/";
     }
+
+    //로그아웃
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return "redirect:/";
+    }
+
 
     @GetMapping("{pageName}")
     public String pageName(@PathVariable String pageName) {

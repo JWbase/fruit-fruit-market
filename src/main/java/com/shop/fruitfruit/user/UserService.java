@@ -19,8 +19,8 @@ public class UserService implements UserMapper {
         return userMapper.login(form);
     }
 
-    @Transactional
     public String join(User user, List<String> termTitle) {
+
         //유저 조인
         userMapper.joinUser(user);
 
@@ -32,6 +32,19 @@ public class UserService implements UserMapper {
         return user.getEmail();
     }
 
+    //email 및 nickname 중복체크
+
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return userMapper.existsByEmail(email);
+    }
+
+    @Override
+    public boolean existsByNickname(String nickname) {
+        return userMapper.existsByNickname(nickname);
+    }
+
     @Override
     public void joinUser(User user) {
     }
@@ -39,4 +52,5 @@ public class UserService implements UserMapper {
     @Override
     public void joinUserTerm(Long userId, String termTitle) {
     }
+
 }
