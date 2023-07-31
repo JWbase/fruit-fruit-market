@@ -3008,9 +3008,10 @@ header .inner .main-menu .item .red .material-icons {
 
 #aside {
   position: fixed;
-  top: 0;
+  top: 13%;
   right: 0;
   width: 120px;
+  z-index: 100;
 }
 #aside .sidebar ul {
   display: flex;
@@ -3154,5 +3155,15 @@ header .inner .main-menu .item .red .material-icons {
   color: #fff;
   padding-left: 20px;
 }
+
+#changePassword .inner .join__1st .inputboxs label .wrong__pw__input {
+  border: 1px solid red;
+}
+#changePassword .inner .join__1st .inputboxs label .wrong__pw {
+  color: red;
+  font: normal 6px/1 "Nanum Gothic";
+  margin-top: 7px;
+}
+
 
 /*# sourceMappingURL=style.css.map */

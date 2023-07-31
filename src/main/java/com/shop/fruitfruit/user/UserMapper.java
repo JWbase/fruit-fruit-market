@@ -25,4 +25,7 @@ public interface UserMapper {
     //nickname 중복 체크
     boolean existsByNickname(@Param("nickname") String nickname);
 
+    //비밀번호 변경
+    int updatePassword(@Param("email") String email, @Param("password") String password);
+
 }

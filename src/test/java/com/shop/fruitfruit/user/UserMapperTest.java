@@ -18,13 +18,13 @@ class UserMapperTest {
     void login() {
         //given
         UserLoginForm form = new UserLoginForm();
-        form.setLoginId("user@naver.com");
-        form.setPassword("1234");
+        form.setLoginId("leejw306@naver.com");
+        form.setPassword("$2a$10$6AHLTJMSl44g58K0Lx.p9Ot1TpE8HlJCCsXawZvBqLY7P4Fd4xsQK");
         //when
         User user = userMapper.login(form);
         //then
-        Assertions.assertThat(user.getEmail()).isEqualTo("user@naver.com");
-        Assertions.assertThat(user.getPassword()).isEqualTo("1234");
+        Assertions.assertThat(user.getEmail()).isEqualTo("leejw306@naver.com");
+        Assertions.assertThat(user.getPassword()).isEqualTo("$2a$10$6AHLTJMSl44g58K0Lx.p9Ot1TpE8HlJCCsXawZvBqLY7P4Fd4xsQK");
     }
 
 }

@@ -28,12 +28,8 @@ public class UserService implements UserMapper {
         if (termTitle != null) {
             termTitle.forEach(title -> userMapper.joinUserTerm(user.getId(), title));
         }
-
         return user.getEmail();
     }
-
-    //email 및 nickname 중복체크
-
 
     @Override
     public boolean existsByEmail(String email) {
@@ -43,6 +39,11 @@ public class UserService implements UserMapper {
     @Override
     public boolean existsByNickname(String nickname) {
         return userMapper.existsByNickname(nickname);
+    }
+
+    @Override
+    public int updatePassword(String email, String password) {
+        return userMapper.updatePassword(email, password);
     }
 
     @Override

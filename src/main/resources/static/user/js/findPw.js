@@ -11,9 +11,12 @@ $(document).on("click", "#findPasswordBtn", () => {
         if (!response.data.exists) {
             $('.txt05').show();
         } else {
+            const changePassword = $('#changePassword');
+            changePassword.attr('href', '/user/changePassword?email=' + email);
+
             $('.txt04').show();
         }
-    }).catch((err) => {
+    }).catch(err => {
         console.log(err);
     });
 });

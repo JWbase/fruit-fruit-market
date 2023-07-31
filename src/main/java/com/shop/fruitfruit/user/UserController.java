@@ -41,9 +41,9 @@ public class UserController {
     public String join(@Validated @ModelAttribute("user") User user,
                        BindingResult bindingResult,
                        @RequestParam("termTitle") List<String> termTitle,
-                       RedirectAttributes redirectAttributes,
+                       BCryptPasswordEncoder bCryptPasswordEncoder,
                        Model model,
-                       BCryptPasswordEncoder bCryptPasswordEncoder) {
+                       RedirectAttributes redirectAttributes) {
 
         //비밀번호 암호화
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -125,9 +125,19 @@ public class UserController {
         return response;
     }
 
+    //비밀번호 변경 화면
     @GetMapping("/changePassword")
     public String changePassword() {
         return "user/changePw";
+    }
+
+    //비밀번호 변경
+    @PostMapping("/changePassword")
+    @ResponseBody
+    public String changePassword(@RequestBody Map<String, String> requestMap) {
+
+        int passwordChanged = userService.updatePassword(requestMap.get("email"), requestMap.get("password"));
+        return passwordChanged > 0 ? "true" : "false";
     }
 
     //로그아웃
@@ -138,12 +148,6 @@ public class UserController {
             session.invalidate();
         }
         return "redirect:/";
-    }
-
-
-    @GetMapping("/{pageName}")
-    public String pageName(@PathVariable String pageName) {
-        return pageName;
     }
 
 }
