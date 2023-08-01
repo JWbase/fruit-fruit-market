@@ -1,5 +1,6 @@
 package com.shop.fruitfruit;
 
+import com.github.pagehelper.PageHelper;
 import com.shop.fruitfruit.domain.admin.Admin;
 import com.shop.fruitfruit.domain.user.User;
 import lombok.extern.slf4j.Slf4j;
@@ -7,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
 @Slf4j
+@Controller
 public class MainController {
 
     @GetMapping("/")

@@ -1,6 +1,6 @@
 package com.shop.fruitfruit;
 
-import com.shop.fruitfruit.interceptor.LoginInterceptor;
+import com.shop.fruitfruit.web.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -9,11 +9,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 
 
-    // 로그인 유지
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        // 로그인 유지
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("","/user/**","/js/**", "/img/**", "/css/**", "/*.ico", "/error", "/admin/**");
+                .excludePathPatterns("/","/user/login", "/user/join", "/*/js/**", "/*/img/**", "/*/css/**", "/*/*.ico", "/error");
     }
 }

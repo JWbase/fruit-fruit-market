@@ -1,4 +1,4 @@
-package com.shop.fruitfruit.firebase;
+package com.shop.fruitfruit.web.firebase;
 
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;

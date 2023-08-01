@@ -1,6 +1,8 @@
 package com.shop.fruitfruit.user;
 
 import com.shop.fruitfruit.domain.user.User;
+import com.shop.fruitfruit.web.user.UserLoginForm;
+import com.shop.fruitfruit.web.user.UserMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
