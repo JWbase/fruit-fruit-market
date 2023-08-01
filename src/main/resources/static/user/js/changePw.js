@@ -22,7 +22,7 @@ $(document).on("click", "#changePasswordBtn", () => {
     }
 
     const password = $('#password').val();
-    const email = new URLSearchParams(location.search).get('email')
+    const email = new URLSearchParams(location.search).get('email');
     const requestData = {
         email: email,
         password: password

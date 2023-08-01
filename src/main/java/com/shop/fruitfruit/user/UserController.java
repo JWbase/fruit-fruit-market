@@ -1,6 +1,6 @@
 package com.shop.fruitfruit.user;
 
-import com.shop.fruitfruit.domain.User;
+import com.shop.fruitfruit.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -102,7 +102,8 @@ public class UserController {
         HttpSession session = request.getSession();
 
         //세션에 로그인 회원정보를 보관
-        session.setAttribute("Login_User", loginUser);
+        session.setAttribute("loginUser", loginUser);
+
 
         return "redirect:/";
     }

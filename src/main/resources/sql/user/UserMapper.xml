@@ -52,10 +52,15 @@
     </insert>
 
     <!-- 회원 로그인 Sql -->
-    <select id="login" parameterType="com.shop.fruitfruit.user.UserLoginForm" resultType="com.shop.fruitfruit.domain.User">
+    <select id="login" parameterType="com.shop.fruitfruit.user.UserLoginForm" resultType="com.shop.fruitfruit.domain.user.User">
         SELECT
+            id,
             email,
-            password
+            nickname,
+            password,
+            status,
+            created_at,
+            updated_at
         FROM
             user
         WHERE

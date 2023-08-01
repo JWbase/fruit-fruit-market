@@ -1,6 +1,6 @@
 package com.shop.fruitfruit.user;
 
-import com.shop.fruitfruit.domain.User;
+import com.shop.fruitfruit.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

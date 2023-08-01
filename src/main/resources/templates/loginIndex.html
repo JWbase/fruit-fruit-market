@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -26,7 +26,7 @@
 <body>
 
 <!-- HEADER -->
-<div th:insert="~{fragment/header.html :: copy}"></div>
+<div th:insert="~{fragment/user/header :: copy}"></div>
 
 <!-- VISUAL -->
 <section id="visual">
@@ -96,7 +96,7 @@
             <li>
                 <a href="#">
                     <span class="material-symbols-outlined">person</span>
-                    <p>홍길동님</p>
+                    <p th:text="${user.nickname}"></p>
                 </a>
 
                 <div class="line"></div>
@@ -397,7 +397,7 @@
 </section>
 
 <!-- FOOTER -->
-<div th:insert="~{fragment/footer :: copy}"></div>
+<div th:insert="~{fragment/user/footer :: copy}"></div>
 
 </body>
 

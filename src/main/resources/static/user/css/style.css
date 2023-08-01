@@ -3008,7 +3008,7 @@ header .inner .main-menu .item .red .material-icons {
 
 #aside {
   position: fixed;
-  top: 13%;
+  top: 8rem;
   right: 0;
   width: 120px;
   z-index: 100;

@@ -25,7 +25,7 @@
 <body>
 
 <!-- HEADER -->
-<div th:insert="~{fragment/header :: copy}"></div>
+<div th:insert="~{fragment/user/header :: copy}"></div>
 
 <section id="join">
     <form id="joinForm" th:action th:object="${user}" method="post" onsubmit="return validateForm()">
@@ -123,7 +123,7 @@
 
 
 <!-- FOOTER -->
-<div th:insert="~{fragment/footer :: copy}"></div>
+<div th:insert="~{fragment/user/footer :: copy}"></div>
 </body>
 
 </html>

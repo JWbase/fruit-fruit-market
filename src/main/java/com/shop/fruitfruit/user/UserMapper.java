@@ -1,11 +1,8 @@
 package com.shop.fruitfruit.user;
 
-import com.shop.fruitfruit.domain.User;
+import com.shop.fruitfruit.domain.user.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Mapper
 public interface UserMapper {
