@@ -43,7 +43,7 @@ public class AdminController {
         return "admin/user";
     }
 
-    @GetMapping("notification")
+    @GetMapping("/notification")
     public String notification() {
         return "admin/notification";
     }

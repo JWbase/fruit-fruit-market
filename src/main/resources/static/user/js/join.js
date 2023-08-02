@@ -46,6 +46,3 @@ function validateForm() {
     }
     return true;
 }
-
-
-

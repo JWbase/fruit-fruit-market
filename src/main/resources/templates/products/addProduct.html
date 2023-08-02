@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -7,15 +7,15 @@
     <title>프룻프룻 쇼핑몰</title>
 
     <!--Open Graph-->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="프룻프룻 Shopping Mall" />
-    <meta property="og:title" content="프룻프룻 Shopping Mall" />
-    <meta property="og:description" content="프룻프룻 Shopping Mall 입니다." />
-    <meta property="og:image" content="./img/openGraph.png" />
-    <meta property="og:url" content="https://prpr-shopping-mall.co.kr" />
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="프룻프룻 Shopping Mall"/>
+    <meta property="og:title" content="프룻프룻 Shopping Mall"/>
+    <meta property="og:description" content="프룻프룻 Shopping Mall 입니다."/>
+    <meta property="og:image" content="./img/openGraph.png"/>
+    <meta property="og:url" content="https://prpr-shopping-mall.co.kr"/>
 
     <!--파비콘-->
-    <link rel="icon" href="./favicon.ico" />
+    <link rel="icon" href="./favicon.ico"/>
 
     <th:block th:insert="~{includes/library}"></th:block>
     <th:block th:insert="~{includes/adminStyle}"></th:block>
@@ -25,76 +25,81 @@
 <body>
 <!-- HEADER -->
 <div th:insert="~{fragment/admin/header :: copy}"></div>
-    <section id="admin_product02">
-        <div class="inner">
-            <div class="title">
-                <h2>상품등록</h2>
-            </div>
+<section id="admin_product02">
+    <div class="inner">
+        <div class="title">
+            <h2>상품등록</h2>
+        </div>
+        <form th:action th:object="${form}" method="post" enctype="multipart/form-data">
 
             <div class="admin_product02__wrap">
-                <label for="productName" class="productName">
-                    <p> <span>*</span> 상품명</p>
-                    <input type="textbox" name="productName" value="상품명을 입력해주세요." id="productName">
+                <label for="name" class="productName">
+                    <p><span>*</span> 상품명</p>
+                    <input type="text" th:field="*{name}" placeholder="상품명을 입력해주세요.">
+                    <p class="wrong__pw" th:errors="*{name}" th:text="${err}" style="color: red"></p>
                 </label>
 
                 <label for="sort">
-                    <p> <span>*</span> 분류</p>
-                    <select name="sort" id="sort">
+                    <p><span>*</span> 분류</p>
+                    <select th:field="*{categoryName}">
                         <p>분류</p>
-                        <option value="봄과일">봄과일</option>
-                        <option value="여름과일">여름과일</option>
-                        <option value="가을과일">가을과일</option>
-                        <option value="겨울과일">겨울과일</option>
+                        <option value="봄">봄과일</option>
+                        <option value="여름">여름과일</option>
+                        <option value="가을">가을과일</option>
+                        <option value="겨울">겨울과일</option>
                     </select>
                 </label>
 
                 <label for="price">
-                    <p> <span>*</span> 상품금액</p>
-                    <input type="textbox" name="price" value="0" id="price">
+                    <p><span>*</span> 상품금액</p>
+                    <input type="text" class="numbers">
+                    <input type="hidden" th:field="*{price}">
                     원
+                    <p class="wrong__pw" th:errors="*{price}" th:text="${err}" style="color: red"></p>
                 </label>
 
-                <label for="discount">
+                <label for="discountRate">
                     <p> 상품할인율 </p>
-                    <input type="textbox" name="discount" value="0" id="discount">
+                    <input type="text" class="numbers">
+                    <input type="hidden" class="numbers" th:field="*{discountRate}">
                     %
+                    <p class="wrong__pw" th:errors="*{discountRate}" th:text="${err}" style="color: red"></p>
                 </label>
 
                 <label for="totalPrice" class="totalPrice">
                     <p> 할인적용 후 금액 </p>
-                    <input type="textbox" name="totalPrice" value="0" id="totalPrice">
+                    <input type="text" id="totalPrice" class="numbers" readonly>
                     원
                 </label>
 
-                <label for="stock">
-                    <p> <span>*</span> 재고수량 </p>
-                    <input type="textbox" name="stock" value="0" id="stock">
-                    원
+                <label for="stockQuantity">
+                    <p><span>*</span> 재고수량 </p>
+                    <input type="text" class="numbers">
+                    <input type="hidden" class="numbers" th:field="*{stockQuantity}">
+                    <p class="wrong__pw" th:errors="*{stockQuantity}" th:text="${err}" style="color: red"></p>
                 </label>
 
                 <label for="productPicture" class="productPicture">
-                    <p> <span>*</span> 상품이미지 </p>
+                    <p><span>*</span> 상품이미지 </p>
                     <div>+ 추가</div>
                     <input type="file" name="productPicture" id="productPicture" accept="image/*">
-                    <img src="./img/이미지위치.png" alt="미리보기 이미지">
+                    <img id="thumbnail" src="./img/이미지위치.png" alt="미리보기 이미지" style="height: 108px" width="108px">
                 </label>
 
-
-                <label for="description" class="description">
-                    <p> <span>*</span> 상품 상세정보 </p>
-                    <input type="textbox" name="description" id="description">
+                <label for="content" class="content">
+                    <p><span>*</span> 상품 상세정보 </p>
+                    <input type="text" th:field="*{content}">
+                    <p th:errors="*{content}" th:text="${err}" style="color: red"></p>
                 </label>
 
             </div>
 
             <div class="buttons">
                 <button>취소하기</button>
-                <button>등록하기</button>
+                <button type="submit">등록하기</button>
             </div>
-        </div>
-    </section>
-
-
+        </form>
+    </div>
+</section>
 </body>
-
 </html>

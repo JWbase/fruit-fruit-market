@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Controller
 @RequiredArgsConstructor
@@ -104,7 +105,6 @@ public class UserController {
         //세션에 로그인 회원정보를 보관
         session.setAttribute("loginUser", loginUser);
 
-
         return "redirect:/";
     }
 
@@ -150,5 +150,4 @@ public class UserController {
         }
         return "redirect:/";
     }
-
 }

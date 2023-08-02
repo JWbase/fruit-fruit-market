@@ -12,12 +12,12 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-@Service
 @Slf4j
+@Service
 public class FireBaseService {
 
-    @Value("${firebase.bucket}")
-    private String firebaseBucket;
+    //@Value(value = "${firebase.bucket}")
+    private String firebaseBucket = "fruit-fruit-3f70b.appspot.com";
 
     public String uploadFiles(MultipartFile file, String path, String fileName) throws IOException {
 

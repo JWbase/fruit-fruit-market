@@ -10,9 +10,10 @@ public class Product {
     private Long categoryId;
     private String name;
     private int price;
+    private int discountRate;
     private int status;
     private int stockQuantity;
-    private String Content;
+    private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

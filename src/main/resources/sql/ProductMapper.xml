@@ -1,4 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.fruitfruit.web.product.ProductMapper">
+    <insert id="addProduct" keyProperty="id">
+        INSERT INTO product
+        (
+            category_id,
+            name,
+            price,
+            discount_rate,
+            status,
+            stock_quantity,
+            content,
+            created_at,
+            updated_at
+        )
+        VALUES
+            (
+                (SELECT id FROM category WHERE category_name = #{form.categoryName}),
+                #{form.name},
+                #{form.price},
+                #{form.discountRate},
+                1,
+                #{form.stockQuantity},
+                #{form.content},
+                NOW(),
+                NOW()
+            )
+    </insert>
 </mapper>

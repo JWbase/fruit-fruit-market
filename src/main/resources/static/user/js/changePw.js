@@ -27,6 +27,7 @@ $(document).on("click", "#changePasswordBtn", () => {
         email: email,
         password: password
     }
+
     axios({
         method: 'post',
         url: '/user/changePassword',

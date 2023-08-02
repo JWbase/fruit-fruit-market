@@ -11,8 +11,8 @@ import org.springframework.core.io.ClassPathResource;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 
-@Configuration
 @Slf4j
+@Configuration
 public class FireBaseInit {
 
     @Value("${firebase.firebaseApiKey}")
