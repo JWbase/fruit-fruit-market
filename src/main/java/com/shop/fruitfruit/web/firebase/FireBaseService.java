@@ -16,8 +16,8 @@ import java.io.InputStream;
 @Service
 public class FireBaseService {
 
-    //@Value(value = "${firebase.bucket}")
-    private String firebaseBucket = "fruit-fruit-3f70b.appspot.com";
+    @Value(value = "${firebase.bucket}")
+    private String firebaseBucket;
 
     public String uploadFiles(MultipartFile file, String path, String fileName) throws IOException {
 
@@ -38,5 +38,4 @@ public class FireBaseService {
 
         return blob.getMediaLink();
     }
-
 }

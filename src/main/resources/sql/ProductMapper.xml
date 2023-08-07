@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.fruitfruit.web.product.ProductMapper">
-    <insert id="addProduct" keyProperty="id">
+    <insert id="addProduct" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO product
         (
             category_id,
@@ -16,13 +16,35 @@
         )
         VALUES
             (
-                (SELECT id FROM category WHERE category_name = #{form.categoryName}),
+                #{form.categoryId},
                 #{form.name},
                 #{form.price},
                 #{form.discountRate},
                 1,
                 #{form.stockQuantity},
                 #{form.content},
+                NOW(),
+                NOW()
+            )
+    </insert>
+
+    <!-- 상품 이미지 추가 -->
+    <insert id="addProductImage" keyProperty="id">
+        INSERT INTO product_image
+        (
+            product_id,
+            file_name,
+            file_path,
+            url,
+            created_at,
+            updated_at
+        )
+        VALUES
+            (
+                #{image.productId},
+                #{image.fileName},
+                #{image.filePath},
+                #{image.url},
                 NOW(),
                 NOW()
             )
