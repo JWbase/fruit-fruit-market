@@ -1,5 +1,7 @@
 package com.shop.fruitfruit.web.product;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.shop.fruitfruit.domain.product.Product;
 import com.shop.fruitfruit.domain.product.ProductImage;
 import com.shop.fruitfruit.web.firebase.FireBaseService;
@@ -27,7 +29,17 @@ public class ProductController {
 
     //상품관리 폼
     @GetMapping("/admin/product")
-    public String product() {
+    public String product(@ModelAttribute("productSearch") ProductSearchCond productSearch,
+                          @RequestParam(required = false, defaultValue = "1") int pageNum,
+                          @RequestParam(required = false, defaultValue = "10") int pageSize,
+                          Model model) {
+
+        log.info("로그입니다!!!!!!!!!!!!!!!!!!! ={}", productSearch);
+        PageInfo<ProductResponseDto> products = productService.ProductFindAll(productSearch, pageNum, pageSize);
+        CountStatus countStatus = productService.countProductStatus();
+
+        model.addAttribute("countStatus", countStatus);
+        model.addAttribute("products", products);
         return "products/product";
     }
 

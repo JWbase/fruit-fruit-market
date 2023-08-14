@@ -13,17 +13,21 @@
         <div class="sub-menu">
             <ul class="menu">
                 <li>
-                    <a href="/user/login">Sign In</a>
+                    <a th:if="${session.loginUser == null}" href="/user/login">Sign In</a>
                 </li>
                 <li>
-                    <a href="/user/join">Join</a>
+                    <a th:if="${session.loginUser == null}" href="/user/join">Join</a>
+                </li>
+                <li>
+                    <a th:if="${session.loginUser != null}" href="/user/logout">Logout</a>
                 </li>
             </ul>
         </div>
 
+
         <ul class="main-menu">
             <li class="item">
-                <div class="item__name"><a href="/static">HOME</a></div>
+                <div class="item__name"><a href="/">HOME</a></div>
             </li>
 
             <li class="item">

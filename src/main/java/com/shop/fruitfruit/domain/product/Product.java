@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.ibatis.type.Alias;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotBlank;
@@ -26,7 +27,7 @@ public class Product {
     @Range(min = 1, max = 100, message = "1 ~ 100 사이로 입력해주세요")
     private Integer discountRate;
 
-    private int status;
+    private Integer status;
 
     @NotNull(message = "재고를 입력해주세요")
     private int stockQuantity;

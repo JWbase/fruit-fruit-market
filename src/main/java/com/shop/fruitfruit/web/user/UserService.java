@@ -10,48 +10,35 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class UserService implements UserMapper {
+public class UserService {
 
-    private final UserMapper userMapper;
+    private final UserRepository userRepository;
 
-    @Override
     public User login(UserLoginForm form) {
-        return userMapper.login(form);
+        return userRepository.login(form);
     }
 
     public String join(User user, List<String> termTitle) {
 
         //유저 조인
-        userMapper.joinUser(user);
+        userRepository.joinUser(user);
 
         //선택 약관 추가
         if (termTitle != null) {
-            termTitle.forEach(title -> userMapper.joinUserTerm(user.getId(), title));
+            termTitle.forEach(title -> userRepository.joinUserTerm(user.getId(), title));
         }
         return user.getEmail();
     }
 
-    @Override
     public boolean existsByEmail(String email) {
-        return userMapper.existsByEmail(email);
+        return userRepository.existsByEmail(email);
     }
 
-    @Override
     public boolean existsByNickname(String nickname) {
-        return userMapper.existsByNickname(nickname);
+        return userRepository.existsByNickname(nickname);
     }
 
-    @Override
     public int updatePassword(String email, String password) {
-        return userMapper.updatePassword(email, password);
+        return userRepository.updatePassword(email, password);
     }
-
-    @Override
-    public void joinUser(User user) {
-    }
-
-    @Override
-    public void joinUserTerm(Long userId, String termTitle) {
-    }
-
 }

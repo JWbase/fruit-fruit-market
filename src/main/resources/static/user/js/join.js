@@ -9,8 +9,8 @@ $(document).on('click', 'input[name=termTitle]', () => {
 
 //비밀번호 입력 후 실시간 확인
 $(document).on('focusout', '.password', () => {
-    let pw1 = $('#password').val();
-    let pw2 = $('#confirmPassword').val();
+    const pw1 = $("#password").val();
+    const pw2 = $("#passwordConfirm").val();
 
     if (pw1 !== pw2) {
         $('#wrong__pw').text('비밀번호가 일치하지 않습니다.');
@@ -24,11 +24,11 @@ function validateForm() {
 
     //비밀번호 일치 체크
     let pw1 = $('#password').val();
-    let pw2 = $('#confirmPassword').val();
+    let pw2 = $('#passwordConfirm').val();
 
     if (pw1 !== pw2) {
         $('#wrong__pw').text('비밀번호가 일치하지 않습니다.');
-        $('#confirmPassword').focus();
+        $('#passwordConfirm').focus();
         return false;
     } else {
         $('#wrong__pw').text('');

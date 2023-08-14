@@ -2,12 +2,15 @@ const imageFiles = [];
 const formData = new FormData();
 
 $(() => {
-
+    $(".totalPrice").hide();
     $(document).on('input', '.calculation', () => {
         const price = Number($("#price").val());
         const discountRate = Number($("#discountRate").val()) / 100;
+        if (discountRate != '') {
+            $(".totalPrice").show();
+        }
         const discountedPrice = price * (1 - discountRate);
-        $("#totalPrice").val(discountedPrice);
+        $("#totalPrice").val(formatNumberWithCommas(discountedPrice));
     });
 
     //상품 이미지 미리보기 코드
@@ -60,11 +63,10 @@ $(() => {
             headers: {'Content-Type': 'multipart/form-data'}
         })
             .then(response => {
-                if (response.data) {
-                    $(".txt04").show();
-                } else {
+                if (!response.data) {
                     alert("상품등록 실패");
                 }
+                $(".txt04").show();
             })
             .catch(error => {
                 console.log('업로드 에러');

@@ -8,12 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class AdminService implements AdminMapper {
+public class AdminService {
 
-    private final AdminMapper adminMapper;
+    private final AdminRepository adminRepository;
 
-    @Override
     public Admin findById(Admin admin) {
-        return adminMapper.findById(admin);
+        return adminRepository.findById(admin);
     }
 }

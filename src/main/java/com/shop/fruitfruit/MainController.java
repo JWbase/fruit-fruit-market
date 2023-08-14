@@ -25,13 +25,15 @@ public class MainController {
 
     /* admin page */
     @GetMapping("/admin")
-    public String adminIndex(@SessionAttribute(name = "loginAdmin", required = false) Admin loginAdmin, Model model) {
+    public String adminIndex(@SessionAttribute(name = "loginAdmin", required = false) Admin loginAdmin,
+                             Model model) {
 
         if (loginAdmin == null) {
+            model.addAttribute("admin", new Admin());
             return "adminIndex";
         }
 
-        model.addAttribute("admin", loginAdmin);
+        model.addAttribute("loginAdmin", loginAdmin);
         return "admin/dashboard";
     }
 

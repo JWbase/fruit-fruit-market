@@ -33,20 +33,19 @@
                 <h1>프룻프룻 관리자센터 <br> 로그인</h1>
             </div>
 
-            <form action="/admin/login" method="post">
+            <form action="/admin/login" th:object="${admin}" method="post">
                 <div class="login__input">
                     <label for="id">
                         <p>아이디</p>
-                        <input type="text" name="id" id="id" placeholder="아이디 입력">
+                        <input type="text" th:field="*{id}" placeholder="아이디 입력">
                     </label>
 
                     <div class="input__pw">
                         <label for="password">
                             <p>비밀번호</p>
-                            <input type="password" name="password" id="password">
+                            <input type="password" th:field="*{password}">
                         </label>
                     </div>
-
                 </div>
 
                 <div class="login__button">

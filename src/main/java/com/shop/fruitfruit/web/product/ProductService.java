@@ -1,5 +1,7 @@
 package com.shop.fruitfruit.web.product;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.shop.fruitfruit.domain.product.Product;
 import com.shop.fruitfruit.domain.product.ProductImage;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +29,18 @@ public class ProductService {
             image.setProductId(product.getId());
             productRepository.addProductImage(image);
         });
+    }
+
+    // 상품 전체 조회
+    public PageInfo<ProductResponseDto> ProductFindAll(ProductSearchCond productSearch, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        PageInfo<ProductResponseDto> products = new PageInfo<>(productRepository.findProductAll(productSearch));
+        products.setNavigatePages(10);
+        return products;
+    }
+
+    // 상품 상태 조회
+    public CountStatus countProductStatus() {
+        return productRepository.countProductStatus();
     }
 }

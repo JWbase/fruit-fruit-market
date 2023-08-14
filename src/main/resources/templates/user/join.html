@@ -52,9 +52,9 @@
                         <input type="password" th:field="*{password}" placeholder="영문, 숫자, 특수문자 (8자-20자 이내)">
                         <p class="wrong__pw" th:errors="*{password}" th:text="${err}"></p>
                     </label>
-                    <label for="confirmPassword">
+                    <label for="passwordConfirm">
                         <p>비밀번호 확인</p>
-                        <input type="password" class="password" id="confirmPassword" placeholder="비밀번호를 한번 더 입력해주세요.">
+                        <input type="password" class="password" id="passwordConfirm" placeholder="비밀번호를 한번 더 입력해주세요.">
                         <p class="wrong__pw" id="wrong__pw"></p>
                     </label>
                 </div>

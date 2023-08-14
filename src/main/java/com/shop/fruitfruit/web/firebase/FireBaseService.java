@@ -2,7 +2,9 @@ package com.shop.fruitfruit.web.firebase;
 
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.cloud.StorageClient;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
