@@ -104,4 +104,16 @@
         FROM
             product
     </select>
+    
+    <update id="stopSaleProduct">
+        UPDATE
+            product
+        SET
+            status = 2
+        WHERE
+            id IN
+            <foreach item="id" collection="ids" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+    </update>
 </mapper>

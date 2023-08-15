@@ -27,6 +27,18 @@ public class ProductController {
     private final ProductService productService;
     private final FireBaseService fireBaseService;
 
+
+    //판매 중지
+    @PostMapping("/admin/stopSaleProduct")
+    @ResponseBody
+    public String stopSale(@RequestBody String[] ids) {
+        int updateRows = productService.stopSaleProduct(ids);
+        if (updateRows > 0) {
+            return "true";
+        }
+        return "false";
+    }
+
     //상품관리 폼
     @GetMapping("/admin/product")
     public String product(@ModelAttribute("productSearch") ProductSearchCond productSearch,
@@ -34,7 +46,6 @@ public class ProductController {
                           @RequestParam(required = false, defaultValue = "10") int pageSize,
                           Model model) {
 
-        log.info("로그입니다!!!!!!!!!!!!!!!!!!! ={}", productSearch);
         PageInfo<ProductResponseDto> products = productService.ProductFindAll(productSearch, pageNum, pageSize);
         CountStatus countStatus = productService.countProductStatus();
 

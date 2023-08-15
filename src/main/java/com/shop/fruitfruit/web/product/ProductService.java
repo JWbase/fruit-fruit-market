@@ -43,4 +43,9 @@ public class ProductService {
     public CountStatus countProductStatus() {
         return productRepository.countProductStatus();
     }
+
+    // 상품 판매 중지
+    public int stopSaleProduct(String[] ids) {
+        return productRepository.stopSaleProduct(ids);
+    }
 }

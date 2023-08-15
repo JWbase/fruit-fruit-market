@@ -3,6 +3,11 @@
     background-color: #234397;
     color: #fff;
 }
+.active {
+    background-color: #234397;
+    color: #ffffff !important;
+}
+
 .selected {
     background-color: #333;
     color: #fff;

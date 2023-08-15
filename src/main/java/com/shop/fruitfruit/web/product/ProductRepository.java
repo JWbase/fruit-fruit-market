@@ -34,4 +34,9 @@ public class ProductRepository implements ProductMapper {
     public CountStatus countProductStatus() {
         return productMapper.countProductStatus();
     }
+
+    @Override
+    public int stopSaleProduct(String[] ids) {
+        return productMapper.stopSaleProduct(ids);
+    }
 }

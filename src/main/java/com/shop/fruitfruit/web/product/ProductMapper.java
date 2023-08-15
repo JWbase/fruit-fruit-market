@@ -18,4 +18,7 @@ public interface ProductMapper {
     //판매상태에 따른 상품 수 출력
     CountStatus countProductStatus();
 
+    //판매 중지
+    int stopSaleProduct(String[] ids);
+
 }

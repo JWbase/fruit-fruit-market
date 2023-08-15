@@ -86,7 +86,7 @@
         <div class="box03">
             <div class="left">
                 <span class="margin">검색결과 <span class="bold" th:text="${products.list.total}"></span>건</span>
-                <button>선택 판매중지</button>
+                <button id="selectedStopSale">선택 판매중지</button>
                 <button>선택삭제</button>
             </div>
 
@@ -111,7 +111,7 @@
                 <thead>
                 <tr>
                     <th scope="col">
-                        <input type="checkbox" checked>
+                        <input type="checkbox" id="selectProduct">
                     </th>
                     <th scope="col">번호</th>
                     <th scope="col">상태</th>
@@ -131,7 +131,7 @@
                 <tr th:each="product : ${products.list}">
                     <td>
                         <label>
-                            <input type="checkbox">
+                            <input type="checkbox" id="productId" th:value="${product.id}">
                         </label>
                     </td>
                     <td th:text="${products.pageSize * (products.pageNum - 1) + productStat.count}">번호</td>
@@ -151,10 +151,12 @@
                     <td th:text="${product.reviewCount}">리뷰</td>
                     <td th:text="${#temporals.format(product.createdAt, 'yyyy-MM-dd')}">등록일</td>
                     <td>
-                        <button>수정</button>
+                        <button th:onclick="|location.href='@{/admin/product/edit(id=${product.id})}'|"
+                                type="button">수정
+                        </button>
                     </td>
                     <td th:switch="${product.status}">
-                        <button th:case="1">중지</button>
+                        <button th:case="1" id="stopSaleBtn">중지</button>
                         <span th:case="2" th:text="${#temporals.format(product.updatedAt, 'yyyy-MM-dd')}"></span>
                         <span th:case="3"></span>
                     </td>
@@ -162,10 +164,9 @@
                 </tbody>
             </table>
         </div>
-
         <div class="pagination">
             <a th:if="${products.pageNum > 1}"
-               th:href="@{/admin/product(pageNum=${products.pageNum - 1}, name=${productSearch.name != null ? productSearch.name : ''}, categoryId=${productSearch.categoryId != null ? productSearch.categoryId : ''}, status=${productSearch.status != null ? productSearch.status : ''})}"
+               th:href="@{/admin/product(categoryId=${productSearch.categoryId != null ? productSearch.categoryId : ''}, status=${productSearch.status != null ? productSearch.status : ''}, name=${productSearch.name != null ? productSearch.name : ''},pageNum=${products.pageNum - 1})}"
                class="prev">
         <span class="material-symbols-outlined">
             chevron_left
@@ -173,13 +174,13 @@
             </a>
             <p class="numbers">
                 <a th:each="i : ${products.navigatepageNums}"
-                   th:href="@{/admin/product(pageNum=${i}, name=${productSearch.name != null ? productSearch.name : ''}, categoryId=${productSearch.categoryId != null ? productSearch.categoryId : ''}, status=${productSearch.status != null ? productSearch.status : ''})}"
+                   th:href="@{/admin/product(categoryId=${productSearch.categoryId != null ? productSearch.categoryId : ''}, status=${productSearch.status != null ? productSearch.status : ''}, name=${productSearch.name != null ? productSearch.name : ''},pageNum=${i})}"
                    th:text="${i}"
                    th:class="${i == products.pageNum} ? 'active'">
                 </a>
             </p>
             <a th:if="${products.pageNum < products.pages}"
-               th:href="@{/admin/product(pageNum=${products.pageNum + 1}, name=${productSearch.name != null ? productSearch.name : ''}, categoryId=${productSearch.categoryId != null ? productSearch.categoryId : ''}, status=${productSearch.status != null ? productSearch.status : ''})}"
+               th:href="@{/admin/product(categoryId=${productSearch.categoryId != null ? productSearch.categoryId : ''}, status=${productSearch.status != null ? productSearch.status : ''}, name=${productSearch.name != null ? productSearch.name : ''},pageNum=${products.pageNum + 1})}"
                class="next">
         <span class="material-symbols-outlined">
             chevron_right
