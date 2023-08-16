@@ -32,12 +32,31 @@ public class FireBaseService {
         if (!path.equals("")) {
             sb.append(path + "/");
         }
-        sb.append(fileName);
 
         Bucket bucket = StorageClient.getInstance().bucket(firebaseBucket);
+
+        String fileSeqName = getUniqueFileName(bucket, sb.toString(), fileName, 0);
+
+        sb.append(fileSeqName);
+
         InputStream content = new ByteArrayInputStream(file.getBytes());
         Blob blob = bucket.create(sb.toString(), content, file.getContentType());
 
         return blob.getMediaLink();
+    }
+
+    private String getUniqueFileName(Bucket bucket, String path, String fileName, int seq) {
+        StringBuilder tempFileName = new StringBuilder(fileName);
+
+        if (seq > 0) {
+            tempFileName.insert(tempFileName.lastIndexOf("."), "(" + seq + ")");
+        }
+
+        Blob blob = bucket.get(path + tempFileName.toString());
+        if (blob != null) {
+            return getUniqueFileName(bucket, path, fileName, seq + 1);
+        } else {
+            return tempFileName.toString();
+        }
     }
 }

@@ -1,4 +1,5 @@
 const imageFiles = [];
+const thumbnailFiles = [];
 const formData = new FormData();
 
 $(() => {
@@ -15,9 +16,9 @@ $(() => {
 
     //상품 이미지 미리보기 코드
     $("#productPicture").on("change", () => {
-        const fileList = $("#productPicture")[0].files;
-        for (const file of fileList) {
-            imageFiles.push(file);
+        const thumbnailList = $("#productPicture")[0].files;
+        for (const thumbnail of thumbnailList) {
+            thumbnailFiles.push(thumbnail);
         }
         uploadImage();
     });
@@ -49,6 +50,10 @@ $(() => {
         for (const file of imageFiles) {
             formData.append("file", file);
         }
+        for (const thumbnail of thumbnailFiles) {
+            formData.append("thumbnail", thumbnail)
+        }
+
         formData.append("name", $("#name").val());
         formData.append("categoryId", $("#categoryId").val());
         formData.append("price", $("#price").val());

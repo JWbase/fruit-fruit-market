@@ -37,7 +37,8 @@
             file_path,
             url,
             created_at,
-            updated_at
+            updated_at,
+            type
         )
         VALUES
             (
@@ -46,7 +47,8 @@
                 #{image.filePath},
                 #{image.url},
                 NOW(),
-                NOW()
+                NOW(),
+                #{image.type}
             )
     </insert>
 
@@ -117,7 +119,7 @@
             </foreach>
     </update>
 
-    <select id="findProductById">
+    <select id="findProductById" resultType="com.shop.fruitfruit.domain.product.Product">
         SELECT
             id,
             category_id,
