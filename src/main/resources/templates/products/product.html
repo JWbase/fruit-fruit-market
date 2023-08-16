@@ -151,7 +151,7 @@
                     <td th:text="${product.reviewCount}">리뷰</td>
                     <td th:text="${#temporals.format(product.createdAt, 'yyyy-MM-dd')}">등록일</td>
                     <td>
-                        <button th:onclick="|location.href='@{/admin/product/edit(id=${product.id})}'|"
+                        <button th:onclick="|location.href='@{/admin/product/{id}/edit(id=${product.id})}'|"
                                 type="button">수정
                         </button>
                     </td>

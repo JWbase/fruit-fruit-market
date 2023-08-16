@@ -48,4 +48,8 @@ public class ProductService {
     public int stopSaleProduct(String[] ids) {
         return productRepository.stopSaleProduct(ids);
     }
+
+    public Product findProductById(Long id) {
+        return productRepository.findProductById(id);
+    }
 }

@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -37,6 +39,28 @@ public class ProductController {
             return "true";
         }
         return "false";
+    }
+
+    //상품수정 폼
+    @GetMapping("/admin/product/{id}/edit")
+    public String editForm(@PathVariable Long id, Model model) {
+        Product product = productService.findProductById(id);
+        model.addAttribute("product", product);
+        return "products/editProduct";
+    }
+
+    //상품수정
+    @PostMapping("/admin/product/{id}/edit")
+    public String edit(@PathVariable Long id,
+                       @Validated @ModelAttribute("product") Product form,
+                       BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            return "products/editProduct";
+        }
+
+        return "redirect:/admin/product";
     }
 
     //상품관리 폼
@@ -71,11 +95,17 @@ public class ProductController {
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
 
-        String firebaseContent = null;
+        String firebaseContent = form.getContent();
         List<ProductImage> images = new ArrayList<>();
+        Pattern imgPattern = Pattern.compile("<img src=\\\"(blob:[^\\\"]+)\\\"[^>]*>");
+
         for (MultipartFile multipartFile : file) {
             String url = fireBaseService.uploadFiles(multipartFile, "images", multipartFile.getOriginalFilename());
-            firebaseContent = form.getContent().replaceAll("<img[^>]*src=[\"']([^\"^']*)[\"'][^>]*>", "<img src=\"" + url + "\" />");
+
+            Matcher imgMatcher = imgPattern.matcher(firebaseContent);
+            if (imgMatcher.find()) {
+                firebaseContent = imgMatcher.replaceFirst("<img src=\"" + url + "\" />");
+            }
 
             ProductImage image = ProductImage.builder()
                     .filePath("images")
@@ -84,6 +114,8 @@ public class ProductController {
                     .build();
             images.add(image);
         }
+
+
         form.setContent(firebaseContent);
         form.setImages(images);
         productService.addProduct(form);

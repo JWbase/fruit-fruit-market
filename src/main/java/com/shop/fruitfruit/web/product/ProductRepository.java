@@ -39,4 +39,9 @@ public class ProductRepository implements ProductMapper {
     public int stopSaleProduct(String[] ids) {
         return productMapper.stopSaleProduct(ids);
     }
+
+    @Override
+    public Product findProductById(Long id) {
+        return productMapper.findProductById(id);
+    }
 }

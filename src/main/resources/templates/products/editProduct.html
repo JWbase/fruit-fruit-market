@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프룻프룻 쇼핑몰</title>
+
+    <!--Open Graph-->
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="프룻프룻 Shopping Mall"/>
+    <meta property="og:title" content="프룻프룻 Shopping Mall"/>
+    <meta property="og:description" content="프룻프룻 Shopping Mall 입니다."/>
+    <meta property="og:image" content="./img/openGraph.png"/>
+    <meta property="og:url" content="https://prpr-shopping-mall.co.kr"/>
+
+    <!--파비콘-->
+    <link rel="icon" href="./favicon.ico"/>
+
+    <script src="https://cdn.tiny.cloud/1/fqkgh1gnaog04pxwdyg2vu8bjfkdffsq8u528829xn5camdp/tinymce/5/tinymce.min.js"
+            referrerpolicy="origin"></script>
+    <th:block th:insert="~{includes/library}"></th:block>
+    <th:block th:insert="~{includes/adminStyle}"></th:block>
+    <th:block th:insert="~{includes/adminScripts}"></th:block>
+    <script src="/admin/js/addProduct.js" type="text/javascript"></script>
+    <!-- TINYMCE -->
+</head>
+
+<body>
+<!-- HEADER -->
+<div th:insert="~{fragment/admin/header :: copy}"></div>
+<section id="admin_product02">
+    <div class="inner">
+        <div class="title">
+            <h2>상품등록</h2>
+        </div>
+        <form th:action th:object="${product}" method="post" enctype="multipart/form-data" id="form">
+
+            <div class="admin_product02__wrap">
+                <label for="name" class="productName">
+                    <p><span>*</span> 상품명</p>
+                    <input type="text" th:field="*{name}" placeholder="상품명을 입력해주세요.">
+                    <div class="error-message" th:errors="*{name}" th:text="${err}"></div>
+                </label>
+
+                <label for="categoryId">
+                    <p><span>*</span> 분류</p>
+                    <select th:field="*{categoryId}">
+                        <p>분류</p>
+                        <option value="1">봄과일</option>
+                        <option value="2">여름과일</option>
+                        <option value="4">가을과일</option>
+                        <option value="5">겨울과일</option>
+                    </select>
+                </label>
+
+                <label for="price">
+                    <p><span>*</span> 상품금액</p>
+                    <input type="text" class="numbers calculation">
+                    <input type="hidden" th:field="*{price}">
+                    원
+                    <div class="error-message" th:errors="*{price}" th:text="${err}" style="color: red"></div>
+                </label>
+
+                <label for="discountRate">
+                    <p> 상품할인율 </p>
+                    <input type="text" class="numbers calculation">
+                    <input type="hidden" class="numbers" th:field="*{discountRate}">
+                    %
+                    <div class="error-message" th:errors="*{discountRate}" th:text="${err}" style="color: red"></div>
+                </label>
+
+                <label for="totalPrice" class="totalPrice">
+                    <p> 할인적용 후 금액 </p>
+                    <input type="text" id="totalPrice" class="numbers" readonly>
+                    원
+                </label>
+
+                <label for="stockQuantity">
+                    <p><span>*</span> 재고수량 </p>
+                    <input type="text" class="numbers">
+                    <input type="hidden" class="numbers" th:field="*{stockQuantity}">
+                    <div class="error-message" th:errors="*{stockQuantity}" th:text="${err}" style="color: red"></div>
+                </label>
+
+                <label for="productPicture" class="productPicture">
+                    <p><span>*</span> 상품이미지 </p>
+                    <div>+ 추가</div>
+                    <input type="file" name="file" id="productPicture" accept="image/*">
+                    <img id="thumbnail" height="108px" width="108px">
+                </label>
+
+                <label for="content" class="content">
+                    <p><span>*</span> 상품 상세정보 </p>
+                    <textarea th:field="*{content}"></textarea>
+                    <div th:class="error-message" th:errors="*{content}" th:text="${err}"></div>
+                </label>
+            </div>
+            <div class="buttons">
+                <button type="reset">취소하기</button>
+                <button type="button" id="submitBtn">등록하기</button>
+            </div>
+        </form>
+    </div>
+    <div class="txt04" style="display: none;">
+        <div class="inner">
+
+            <h4>알림</h4>
+
+            <h5>상품등록이 완료 되었습니다.
+                <a onclick="window.location.href = '/admin/product'">확인</a>
+            </h5>
+
+        </div>
+    </div>
+</section>
+</body>
+</html>

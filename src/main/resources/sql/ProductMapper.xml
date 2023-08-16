@@ -116,4 +116,21 @@
                 #{id}
             </foreach>
     </update>
+
+    <select id="findProductById">
+        SELECT
+            id,
+            category_id,
+            name,
+            price,
+            discount_rate,
+            status,
+            stock_quantity,
+            content,
+            created_at,
+            updated_at
+        FROM
+            product
+        WHERE id = #{id}
+    </select>
 </mapper>
