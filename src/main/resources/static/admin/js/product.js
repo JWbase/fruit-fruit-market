@@ -66,6 +66,12 @@ $(document).ready(function () {
         $("form").submit();
     });
 
+    const url = new URL(window.location.href);
+    const selectedPageSize = url.searchParams.get('pageSize');
+    if (selectedPageSize) {
+        $('#pageSize').val(selectedPageSize);
+    }
+
     $('#pageSize').on("change", function () {
         const pageSize = $('#pageSize').val();
 
@@ -140,7 +146,7 @@ $(document).ready(function () {
     });
 
     $(this).on("click", "#selectedStopSale", () => {
-        const {status, ids} = productInfo(3);
+        const {status, ids} = productInfo(2);
         changeStatusProduct(ids, status);
     });
 
