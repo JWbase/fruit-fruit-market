@@ -45,8 +45,8 @@ public class ProductService {
     }
 
     // 상품 판매 중지
-    public int stopSaleProduct(String[] ids) {
-        return productRepository.stopSaleProduct(ids);
+    public int changeStatusProduct(List<Long> ids, int status) {
+        return productRepository.changeStatusProduct(ids, status);
     }
 
     public Product findProductById(Long id) {

@@ -19,7 +19,7 @@ public interface ProductMapper {
     CountStatus countProductStatus();
 
     //판매 중지
-    int stopSaleProduct(String[] ids);
+    int changeStatusProduct(@Param("ids") List<Long> ids, @Param("status") int status);
 
     //상품 조회
     Product findProductById(Long id);

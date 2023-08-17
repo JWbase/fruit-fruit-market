@@ -36,8 +36,8 @@ public class ProductRepository implements ProductMapper {
     }
 
     @Override
-    public int stopSaleProduct(String[] ids) {
-        return productMapper.stopSaleProduct(ids);
+    public int changeStatusProduct(List<Long> ids, int status) {
+        return productMapper.changeStatusProduct(ids, status);
     }
 
     @Override
