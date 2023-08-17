@@ -1,7 +1,7 @@
-package com.shop.fruitfruit.web.admin;
+package com.shop.fruitfruit.web.admin.controller;
 
 import com.shop.fruitfruit.domain.admin.Admin;
-import com.shop.fruitfruit.web.user.UserLoginForm;
+import com.shop.fruitfruit.web.admin.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

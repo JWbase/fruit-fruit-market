@@ -1,6 +1,8 @@
-package com.shop.fruitfruit.web.user;
+package com.shop.fruitfruit.web.user.controller;
 
 import com.shop.fruitfruit.domain.user.User;
+import com.shop.fruitfruit.web.user.dto.UserLoginForm;
+import com.shop.fruitfruit.web.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,7 +18,6 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Controller
 @RequiredArgsConstructor

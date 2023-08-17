@@ -1,7 +1,11 @@
-package com.shop.fruitfruit.web.product;
+package com.shop.fruitfruit.web.product.repository;
 
 import com.shop.fruitfruit.domain.product.Product;
 import com.shop.fruitfruit.domain.product.ProductImage;
+import com.shop.fruitfruit.web.product.mapper.ProductMapper;
+import com.shop.fruitfruit.web.product.dto.CountStatus;
+import com.shop.fruitfruit.web.product.dto.ProductResponseDto;
+import com.shop.fruitfruit.web.product.dto.ProductSearchCond;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;

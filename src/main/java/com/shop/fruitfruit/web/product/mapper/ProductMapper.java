@@ -1,7 +1,10 @@
-package com.shop.fruitfruit.web.product;
+package com.shop.fruitfruit.web.product.mapper;
 
 import com.shop.fruitfruit.domain.product.Product;
 import com.shop.fruitfruit.domain.product.ProductImage;
+import com.shop.fruitfruit.web.product.dto.CountStatus;
+import com.shop.fruitfruit.web.product.dto.ProductResponseDto;
+import com.shop.fruitfruit.web.product.dto.ProductSearchCond;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

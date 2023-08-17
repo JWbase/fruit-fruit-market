@@ -1,6 +1,7 @@
-package com.shop.fruitfruit.web.admin;
+package com.shop.fruitfruit.web.admin.service;
 
 import com.shop.fruitfruit.domain.admin.Admin;
+import com.shop.fruitfruit.web.admin.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,10 +1,13 @@
-package com.shop.fruitfruit.web.product;
+package com.shop.fruitfruit.web.product.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.shop.fruitfruit.domain.product.Product;
 import com.shop.fruitfruit.domain.product.ProductImage;
 import com.shop.fruitfruit.web.firebase.FireBaseService;
+import com.shop.fruitfruit.web.product.service.ProductService;
+import com.shop.fruitfruit.web.product.dto.CountStatus;
+import com.shop.fruitfruit.web.product.dto.ProductResponseDto;
+import com.shop.fruitfruit.web.product.dto.ProductSearchCond;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +32,6 @@ public class ProductController {
 
     private final ProductService productService;
     private final FireBaseService fireBaseService;
-
 
     //판매 중지
     @PostMapping("/admin/stopSaleProduct")
@@ -140,5 +142,4 @@ public class ProductController {
         private final String path;
         private final int type;
     }
-
 }

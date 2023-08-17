@@ -1,6 +1,8 @@
-package com.shop.fruitfruit.web.user;
+package com.shop.fruitfruit.web.user.repository;
 
 import com.shop.fruitfruit.domain.user.User;
+import com.shop.fruitfruit.web.user.dto.UserLoginForm;
+import com.shop.fruitfruit.web.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;

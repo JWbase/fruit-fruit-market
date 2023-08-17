@@ -1,9 +1,13 @@
-package com.shop.fruitfruit.web.product;
+package com.shop.fruitfruit.web.product.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.shop.fruitfruit.domain.product.Product;
 import com.shop.fruitfruit.domain.product.ProductImage;
+import com.shop.fruitfruit.web.product.repository.ProductRepository;
+import com.shop.fruitfruit.web.product.dto.CountStatus;
+import com.shop.fruitfruit.web.product.dto.ProductResponseDto;
+import com.shop.fruitfruit.web.product.dto.ProductSearchCond;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

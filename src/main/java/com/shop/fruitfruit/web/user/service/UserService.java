@@ -1,6 +1,8 @@
-package com.shop.fruitfruit.web.user;
+package com.shop.fruitfruit.web.user.service;
 
 import com.shop.fruitfruit.domain.user.User;
+import com.shop.fruitfruit.web.user.dto.UserLoginForm;
+import com.shop.fruitfruit.web.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

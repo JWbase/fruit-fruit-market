@@ -1,14 +1,13 @@
 package com.shop.fruitfruit.user;
 
 import com.shop.fruitfruit.domain.user.User;
-import com.shop.fruitfruit.web.user.UserLoginForm;
-import com.shop.fruitfruit.web.user.UserMapper;
+import com.shop.fruitfruit.web.user.dto.UserLoginForm;
+import com.shop.fruitfruit.web.user.mapper.UserMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mock.web.MockMultipartFile;
 
 @SpringBootTest
 class UserMapperTest {

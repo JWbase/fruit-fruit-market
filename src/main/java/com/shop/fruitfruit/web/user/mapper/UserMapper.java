@@ -1,6 +1,7 @@
-package com.shop.fruitfruit.web.user;
+package com.shop.fruitfruit.web.user.mapper;
 
 import com.shop.fruitfruit.domain.user.User;
+import com.shop.fruitfruit.web.user.dto.UserLoginForm;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

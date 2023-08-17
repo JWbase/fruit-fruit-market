@@ -1,4 +1,4 @@
-package com.shop.fruitfruit.web.product;
+package com.shop.fruitfruit.web.product.dto;
 
 import lombok.*;
 

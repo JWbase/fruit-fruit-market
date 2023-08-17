@@ -1,4 +1,4 @@
-package com.shop.fruitfruit.web.user;
+package com.shop.fruitfruit.web.user.dto;
 
 import lombok.Data;
 
