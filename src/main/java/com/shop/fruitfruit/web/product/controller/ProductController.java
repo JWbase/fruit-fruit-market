@@ -1,9 +1,13 @@
-package com.shop.fruitfruit.web.product;
+package com.shop.fruitfruit.web.product.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.shop.fruitfruit.domain.product.Product;
 import com.shop.fruitfruit.domain.product.ProductImage;
 import com.shop.fruitfruit.web.firebase.FireBaseService;
+import com.shop.fruitfruit.web.product.dto.CountStatus;
+import com.shop.fruitfruit.web.product.dto.ProductResponseDto;
+import com.shop.fruitfruit.web.product.dto.ProductSearchCond;
+import com.shop.fruitfruit.web.product.service.ProductService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -93,7 +97,7 @@ public class ProductController {
     @ResponseBody
     public ResponseEntity<?> addProduct(@Validated @ModelAttribute("form") Product form,
                                         BindingResult bindingResult,
-                                        @RequestParam("file") List<MultipartFile> files,
+                                        @RequestParam(value = "file", required = false) List<MultipartFile> files,
                                         @RequestParam("thumbnail") List<MultipartFile> thumbnails) throws IOException {
 
         if (bindingResult.hasErrors()) {
@@ -107,7 +111,9 @@ public class ProductController {
 
         // 이미지와 썸네일 리스트에 추가
         List<UploadType> uploadTypes = new ArrayList<>();
-        files.forEach(file -> uploadTypes.add(new UploadType(file, "images", 0)));
+        if (files != null) {
+            files.forEach(file -> uploadTypes.add(new UploadType(file, "images", 0)));
+        }
         thumbnails.forEach(thumbnail -> uploadTypes.add(new UploadType(thumbnail, "thumbnail", 1)));
 
         for (UploadType uploadType : uploadTypes) {
@@ -130,8 +136,10 @@ public class ProductController {
             images.add(image);
         }
 
+
         form.setContent(firebaseContent);
         form.setImages(images);
+
         productService.addProduct(form);
 
         return ResponseEntity.ok("true");
