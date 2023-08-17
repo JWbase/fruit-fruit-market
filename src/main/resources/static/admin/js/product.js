@@ -1,3 +1,11 @@
+function productInfo(status) {
+    const ids = [];
+    $('input[type="checkbox"]:checked').each(function () {
+        ids.push($(this).val());
+    });
+    return {status, ids};
+}
+
 $(document).ready(function () {
     const selectedCategoryIds = new Set();
     const selectedStatusValues = new Set();
@@ -57,6 +65,12 @@ $(document).ready(function () {
     $(".search button").click(function () {
         $("form").submit();
     });
+
+    const url = new URL(window.location.href);
+    const selectedPageSize = url.searchParams.get('pageSize');
+    if (selectedPageSize) {
+        $('#pageSize').val(selectedPageSize);
+    }
 
     $('#pageSize').on("change", function () {
         const pageSize = $('#pageSize').val();
@@ -131,31 +145,30 @@ $(document).ready(function () {
         }
     });
 
-    $(".product-table").on("click", "#stopSaleBtn", function () {
-        const ids = [$(this).closest('tr').find('input[type="checkbox"]').val()];
-        stopSaleProduct(ids);
+    $(this).on("click", "#selectedStopSale", () => {
+        const {status, ids} = productInfo(2);
+        changeStatusProduct(ids, status);
     });
 
-    $(this).on("click", "#selectedStopSale", () => {
-        const ids = [];
-        $('input[type="checkbox"]:checked').each(function () {
-            ids.push($(this).val());
-        });
-        stopSaleProduct(ids);
+    $(this).on("click", "#selectedDelete", () => {
+        const {status, ids} = productInfo(4);
+        changeStatusProduct(ids, status);
     });
 
 });
 
-function stopSaleProduct(ids) {
+function changeStatusProduct(ids, status) {
     axios({
-        url: '/admin/stopSaleProduct',
+        url: '/admin/changeStatus',
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
         },
-        data: JSON.stringify(ids)
+        data: {
+            ids: ids,
+            status: status
+        }
     }).then(response => {
-        console.log(response.data);
         if (response.data) {
             alert("정보가 변경되었습니다.");
             location.reload();

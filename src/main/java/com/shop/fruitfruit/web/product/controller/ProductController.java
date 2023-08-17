@@ -1,13 +1,9 @@
-package com.shop.fruitfruit.web.product.controller;
+package com.shop.fruitfruit.web.product;
 
 import com.github.pagehelper.PageInfo;
 import com.shop.fruitfruit.domain.product.Product;
 import com.shop.fruitfruit.domain.product.ProductImage;
 import com.shop.fruitfruit.web.firebase.FireBaseService;
-import com.shop.fruitfruit.web.product.service.ProductService;
-import com.shop.fruitfruit.web.product.dto.CountStatus;
-import com.shop.fruitfruit.web.product.dto.ProductResponseDto;
-import com.shop.fruitfruit.web.product.dto.ProductSearchCond;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,11 +30,16 @@ public class ProductController {
     private final ProductService productService;
     private final FireBaseService fireBaseService;
 
-    //판매 중지
-    @PostMapping("/admin/stopSaleProduct")
+
+    //판매 상태 변경
+    @PostMapping("/admin/changeStatus")
     @ResponseBody
-    public String stopSale(@RequestBody String[] ids) {
-        int updateRows = productService.stopSaleProduct(ids);
+    public String stopSale(@RequestBody Map<String, Object> data) {
+
+        List<Long> ids = (List<Long>) data.get("ids");
+        int status = (int) data.get("status");
+
+        int updateRows = productService.changeStatusProduct(ids, status);
         if (updateRows > 0) {
             return "true";
         }
@@ -142,4 +144,5 @@ public class ProductController {
         private final String path;
         private final int type;
     }
+
 }
