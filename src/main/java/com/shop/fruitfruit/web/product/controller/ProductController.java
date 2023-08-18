@@ -2,13 +2,11 @@ package com.shop.fruitfruit.web.product.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.shop.fruitfruit.domain.product.Product;
-import com.shop.fruitfruit.domain.product.ProductImage;
-import com.shop.fruitfruit.web.firebase.FireBaseService;
 import com.shop.fruitfruit.web.product.dto.CountStatus;
 import com.shop.fruitfruit.web.product.dto.ProductResponseDto;
 import com.shop.fruitfruit.web.product.dto.ProductSearchCond;
+import com.shop.fruitfruit.web.product.dto.UploadType;
 import com.shop.fruitfruit.web.product.service.ProductService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -32,8 +27,6 @@ import java.util.regex.Pattern;
 public class ProductController {
 
     private final ProductService productService;
-    private final FireBaseService fireBaseService;
-
 
     //판매 상태 변경
     @PostMapping("/admin/changeStatus")
@@ -105,52 +98,10 @@ public class ProductController {
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
 
-        String firebaseContent = form.getContent();
-        List<ProductImage> images = new ArrayList<>();
-        Pattern imgPattern = Pattern.compile("<img src=\\\"(blob:[^\\\"]+)\\\"[^>]*>");
-
-        // 이미지와 썸네일 리스트에 추가
-        List<UploadType> uploadTypes = new ArrayList<>();
-        if (files != null) {
-            files.forEach(file -> uploadTypes.add(new UploadType(file, "images", 0)));
-        }
-        thumbnails.forEach(thumbnail -> uploadTypes.add(new UploadType(thumbnail, "thumbnail", 1)));
-
-        for (UploadType uploadType : uploadTypes) {
-            MultipartFile multipartFile = uploadType.getFile();
-            String url = fireBaseService.uploadFiles(multipartFile, uploadType.getPath(), multipartFile.getOriginalFilename());
-
-            if (uploadType.getType() == 0) {
-                Matcher imgMatcher = imgPattern.matcher(firebaseContent);
-                if (imgMatcher.find()) {
-                    firebaseContent = imgMatcher.replaceFirst("<img src=\"" + url + "\" />");
-                }
-            }
-
-            ProductImage image = ProductImage.builder()
-                    .filePath(uploadType.getPath())
-                    .fileName(multipartFile.getOriginalFilename())
-                    .url(url)
-                    .type(uploadType.getType())
-                    .build();
-            images.add(image);
-        }
-
-
-        form.setContent(firebaseContent);
-        form.setImages(images);
-
-        productService.addProduct(form);
+        List<UploadType> uploadTypes = productService.uploadImagesAndThumbnail(files, thumbnails);
+        productService.addProductWithImages(form, uploadTypes);
 
         return ResponseEntity.ok("true");
-    }
-
-    @RequiredArgsConstructor
-    @Getter
-    static class UploadType {
-        private final MultipartFile file;
-        private final String path;
-        private final int type;
     }
 
 }
