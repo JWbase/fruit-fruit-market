@@ -15,7 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
         // 로그인 유지
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/", "/user/login", "/user/join", "/*/js/**", "/*/img/**", "/*/css/**", "/*/*.ico", "/error", "/admin", "/admin/**");
+                .excludePathPatterns("/", "/user/login", "/user/join", "/user/joinConfirm", "/*/js/**", "/*/img/**", "/*/css/**", "/*/*.ico", "/error", "/admin", "/admin/**");
 
         registry.addInterceptor(new AdminLoginInterceptor())
                 .addPathPatterns("/admin/**")

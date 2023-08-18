@@ -43,12 +43,8 @@ public class UserController {
     public String join(@Validated @ModelAttribute("user") User user,
                        BindingResult bindingResult,
                        @RequestParam("termTitle") List<String> termTitle,
-                       BCryptPasswordEncoder bCryptPasswordEncoder,
                        Model model,
                        RedirectAttributes redirectAttributes) {
-
-        //비밀번호 암호화
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
         if (userService.existsByEmail(user.getEmail()))
             bindingResult.rejectValue("email", "duplicate.email", "이미 가입된 계정 입니다.");

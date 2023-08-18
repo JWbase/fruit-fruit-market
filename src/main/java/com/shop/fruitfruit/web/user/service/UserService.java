@@ -4,6 +4,7 @@ import com.shop.fruitfruit.domain.user.User;
 import com.shop.fruitfruit.web.user.dto.UserLoginForm;
 import com.shop.fruitfruit.web.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,12 +16,16 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     public User login(UserLoginForm form) {
         return userRepository.login(form);
     }
 
     public String join(User user, List<String> termTitle) {
+
+        //비밀번호 인코딩
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         //유저 조인
         userRepository.joinUser(user);
